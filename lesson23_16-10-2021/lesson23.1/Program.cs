@@ -49,8 +49,8 @@ public static class SqlHelper
         using var db = new StudentContext();
         db.Remove(await FindById(id)); // Remove the user, if found
 
-        await db.SaveChangesAsync();
-        IO.Debug("User deleted");
+        var v = await db.SaveChangesAsync();
+        if (v > 0) IO.Debug("User deleted"); // If chages were made
     }
 
     public static async Task PrintAll()
@@ -74,8 +74,8 @@ public static class SqlHelper
 
         // Apply the changes to the database
         db.Update(curUser);
-        await db.SaveChangesAsync();
-        IO.Debug("User updated");
+        int v = await db.SaveChangesAsync();
+        if (v > 0) IO.Debug("User updated");
     }
 }
 
