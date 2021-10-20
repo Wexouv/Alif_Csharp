@@ -43,4 +43,6 @@ static void Main() {
 
 //---------------------------------------------------------------
 
+/* Everybody who learns concurrency thinks they understand it, ends up finding mysterious races they thought weren’t possible, and discovers that they didn’t actually understand it yet after all.” Herb Sutter */
+
 // https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)
