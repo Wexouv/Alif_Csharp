@@ -10,9 +10,8 @@ public class Student
 {
     public Student() { }
 
-    public Student(int id, string name, int age)
+    public Student(string name, int age)
     {
-        Id = id;
         Name = name;
         Age = age;
     }
@@ -32,6 +31,22 @@ class Program
             await db.QueryAsync(insertQuery, new { student.Name, student.Age });
         }
     }
+
+    static async Task Remove(Student student) {
+        using (IDbConnection db = new SqlConnection(cnnString)) {
+            string removeQuery = "DELETE FROM students WHERE Name = @name";
+            await db.QueryAsync(removeQuery, new { name = student.Name });
+        }
+    }
+
+    static async Task Update(Student student) {
+        using (IDbConnection db = new SqlConnection(cnnString)) {
+            var newStudent = GetStudent(); // Get a new student
+
+            string updateQuery = "UPDATE students SET Name = @Name, Age = @Age Where Name = @oldName";
+            await db.QueryAsync(updateQuery, new { oldName = student.Name, Name = newStudent.Name, Age = newStudent.Age });
+        }
+    }
     /* This method prints the students table */
     static async Task Print()
     {
@@ -44,8 +59,47 @@ class Program
         }
     }
     public const string cnnString = "Server=localhost; Initial catalog=DZ; User=sa; password=qwerty112!";
+
+    static Student GetStudent()
+    {
+        var name = IO.GetInput<string>("Name: ");
+        var age = IO.GetInput<int>("Age: ");
+
+        return new Student(name, age);
+    }
+
+    static void ShowMenu()
+    {
+        Console.ReadKey();
+        Console.Clear();
+        Console.WriteLine("1.Add\t2.Remove\t3.Print\t4.Update");
+    }
     static async Task Main()
     {
+        bool running = true;
 
+        while (running) {
+            ShowMenu();
+            var cmd = Console.ReadLine();
+
+            switch (cmd) {
+                case "1":
+                    await Add(GetStudent()); // C - 1
+                    break;
+                case "2":
+                    await Remove(GetStudent()); // D - 4
+                    break;
+                case "3":
+                    await Print(); // R - 2
+                    break;
+                case "4":
+                    await Update(GetStudent()); // U - 3
+                    break;
+                default:
+                    IO.Print("Invalid input", ConsoleColor.Red);
+                    running = false;
+                    break;
+            }
+        }
     }
 }
