@@ -1,0 +1,18 @@
+@model Project.Models.Product
+
+<form method="post" asp-controller="Add" asp-action="Index">
+    <label>Name</label>
+    <input class="form-control" asp-for="Name" />
+    <br />
+
+    <label>Cost</label>
+    <input class="form-control" asp-for="Cost" />
+    <br />
+
+    <label>Category</label>
+    <input class="form-control" asp-for="Category" />
+    <br />
+
+    <input class="btn btn-success" type="submit" title="Create" value="Create" />
+    <input class="btn btn-danger" type="reset" title="" value="Cancel" />
+</form>
