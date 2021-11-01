@@ -1,0 +1,28 @@
+@model List<Project.Models.Product>
+    <table class="table table-bordered table-dark table-hover">
+        <thread>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Cost</th>
+                <th scope="col">Category</th>
+            </tr>            
+@foreach (var i in Model)
+{
+        <tbody>
+            <tr>
+                <th scope="row">@i.Id</th>
+                <td>@i.Name</td>
+                <td>@i.Cost</td>
+                <td>
+                    <a asp-controller="Category" asp-action="Index" asp-route-Category="@i.Category" class="btn btn-block btn-warning">@i.Category</a>
+                </td>
+                <td>
+                    <a asp-controller="Edit" asp-action="Index" asp-route-Id="@i.Id" class="btn btn-primary mx-1"> Edit </a>
+                    <a asp-controller="Delete" asp-action="Index" asp-route-Id="@i.Id" class="btn btn-danger mx-1"> Remove </a>
+                </td>
+            </tr>
+        </tbody>
+}
+        </thread>
+    </table>
