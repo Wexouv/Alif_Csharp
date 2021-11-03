@@ -10,6 +10,7 @@ namespace Proj.Models
         public string Text { get; set; }
         // Not required
         public string Author { get; set; }
+        [Required]
         public DateTime InsertDate { get; set; }
     }
 }
